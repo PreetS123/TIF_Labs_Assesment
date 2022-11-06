@@ -3,27 +3,35 @@ import styled from "styled-components";
 import styles from "../Styles/SignUp.module.css";
 import {useNavigate} from 'react-router-dom';
 
-export const SignUp = () => {
+export const SignUp = ({submitForm}) => {
     const navigate = useNavigate();
-    const [error,setError]= useState(false);
+    const [error,setError]= useState({});
     const [validData,setValidData]= useState(false);
     const [inpval,setInpVal]= useState({
-        username:"",
+        fullname:"",
         email:"",
         password:""
     })
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+     setError(false);
+     setValidData(true);
   };
 
   const handleChange=(e)=>{
     setInpVal({
         ...inpval,
-        [e.target.name]:e.target.value
+        [e.target.name]:e.target.value,
     })
   }
+   
+  useEffect(()=>{
+    if(Object.keys(error).length===0 && validData ){
+       submitForm(true);
+    }
+  },[error])
+
 
   return (
     <>
@@ -41,10 +49,10 @@ export const SignUp = () => {
 
             <div className={styles.formDiv}>
                 <InsideDiv>
-                  <label htmlFor="username">UserName</label>
+                  <label htmlFor="fullname">Full_Name</label>
                 </InsideDiv>
                 <InsideDiv>
-                  <input className={styles.inputWrapper}  type="text" name="username" onChange={handleChange} />
+                  <input className={styles.inputWrapper}  type="text" name="fullname" onChange={handleChange} />
                 </InsideDiv>
               </div>
 
