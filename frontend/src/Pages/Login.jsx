@@ -12,7 +12,21 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+    const getUserData= JSON.parse(localStorage.getItem('credential'));
+
+    const {email,password}=logdata;
+    if(getUserData && getUserData.length){
+      const userLogin=getUserData.filter(item=>{
+        return item.email===email && item.password===password
+      })
+      if(userLogin.length===0){
+        alert('Invalid Credentials')
+      }
+      else{
+        alert('Login Successfull');
+        navigate('/home')
+      }
+    }
   };
 
   const handleChange=(e)=>{

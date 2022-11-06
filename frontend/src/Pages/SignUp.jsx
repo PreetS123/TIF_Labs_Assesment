@@ -2,8 +2,9 @@ import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import styles from "../Styles/SignUp.module.css";
 import {useNavigate} from 'react-router-dom';
+import { Validation } from "../Components/Validation";
 
-export const SignUp = ({submitForm}) => {
+export const SignUp = ({SubmitForm}) => {
     const navigate = useNavigate();
     const [error,setError]= useState({});
     const [validData,setValidData]= useState(false);
@@ -15,8 +16,9 @@ export const SignUp = ({submitForm}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     setError(false);
+     setError(Validation(inpval));
      setValidData(true);
+    
   };
 
   const handleChange=(e)=>{
@@ -28,7 +30,8 @@ export const SignUp = ({submitForm}) => {
    
   useEffect(()=>{
     if(Object.keys(error).length===0 && validData ){
-       submitForm(true);
+       SubmitForm(true);
+       navigate('/login');
     }
   },[error])
 
@@ -54,6 +57,7 @@ export const SignUp = ({submitForm}) => {
                 <InsideDiv>
                   <input className={styles.inputWrapper}  type="text" name="fullname" onChange={handleChange} />
                 </InsideDiv>
+                {error.fullname && <p>{error.fullname}</p>}
               </div>
 
               <div className={styles.formDiv}>
@@ -63,6 +67,7 @@ export const SignUp = ({submitForm}) => {
                 <InsideDiv>
                   <input className={styles.inputWrapper}  type="email" name="email" onChange={handleChange} />
                 </InsideDiv>
+                {error.email && <p>{error.email}</p>}
               </div>
 
               <div className={styles.formDiv}>
@@ -72,6 +77,7 @@ export const SignUp = ({submitForm}) => {
                 <InsideDiv>
                   <input className={styles.inputWrapper} type="password" name="password" onChange={handleChange} />
                 </InsideDiv>
+                {error.password && <p>{error.password}</p>}
               </div>
                
               

@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom';
 import { SignUp } from './Pages/SignUp';
 import { Login } from './Pages/Login';
 import { Navbar } from './Components/Navbar';
+import { Home } from './Pages/Home';
 
 
 function App() {
@@ -16,11 +17,11 @@ function App() {
     <div className="App">
       <Navbar show={show} />
       <Routes>
-           {
-            (!show) ?<Route path='/' element={<SignUp SubmitForm={SubmitForm} />}/> :
+           
+             <Route path='/' element={<SignUp SubmitForm={SubmitForm} />}/> 
              <Route path='/login' element={<Login/>} />
-           }
-           {/* <Route path='/' element={} /> */}
+           
+             <Route path='/home' element={<Home/>} />
            {/* <Route path='/' /> */}
       </Routes>
     </div>
