@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Currency } from '../Components/Currency';
 
 export const Home = () => {
-  let API_KEY=`3NmQxsuZDQavthhh2RlLlQxCH01TVq2b`;
+  // let API_KEY=`3NmQxsuZDQavthhh2RlLlQxCH01TVq2b`;
+  let API_KEY=`Mhy3nY52ORdI0j2sKxhNdbf0Uzgo75ET`;
   const [currencyOption,setCurrencyOption]= useState([]);
    const [fromCurrency,setFromCurrency]= useState();
    const [toCurrency,setToCurrency]= useState();
