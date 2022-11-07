@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { Currency } from '../Components/Currency';
 
 export const Home = () => {
-  // let API_KEY=`3NmQxsuZDQavthhh2RlLlQxCH01TVq2b`;
-  let API_KEY=`Mhy3nY52ORdI0j2sKxhNdbf0Uzgo75ET`;
+  let API_KEY=`3NmQxsuZDQavthhh2RlLlQxCH01TVq2b`;
+  // let API_KEY='iKzTSZtNauKrI1syzB1CULMx0HEwhdV2';
+  // let API_KEY=`Mhy3nY52ORdI0j2sKxhNdbf0Uzgo75ET`;
   const [currencyOption,setCurrencyOption]= useState([]);
    const [fromCurrency,setFromCurrency]= useState();
    const [toCurrency,setToCurrency]= useState();
@@ -43,7 +44,7 @@ const handleToChange=(e)=>{
     headers: myApiKey
   };
 useEffect(()=>{
-  fetch(`https://api.apilayer.com/exchangerates_data/latest?base=USD`, requestOptions)
+  fetch(`https://api.apilayer.com/exchangerates_data/latest`, requestOptions)
   .then(res => res.json())
   .then(data =>{
     let firstCurr=Object.keys(data.rates)[0];
@@ -55,13 +56,23 @@ useEffect(()=>{
   .catch(error => console.log('error', error));
 },[])
 
-
+  
+useEffect(()=>{
+  if(fromCurrency!=null && toCurrency!=null){
+    fetch(`https://api.apilayer.com/exchangerates_data/latest?base=${fromCurrency}&symbols=${toCurrency}`)
+    .then(r=>r.json())
+    .then(data=>{
+      setExchangeRates(data.rates[toCurrency])
+    })
+  }
+  
+},[fromCurrency,toCurrency])
 
   return (
     <div>
       <h1> Currency Converter</h1>
           
-          <div>
+          <div className='currencydiv'>
             <Currency 
             currencyOption={currencyOption}  
             selectedCurrency={fromCurrency}
